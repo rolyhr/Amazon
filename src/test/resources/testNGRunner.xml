@@ -1,0 +1,23 @@
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="Functional">
+    <test name="Search" >
+<!--                <groups>-->
+<!--                    <run>-->
+<!--                        <include name="Regression"/>-->
+<!--                    </run>-->
+<!--                </groups>-->
+        <classes>
+            <class name="testPOM.TestSearchBar"/>
+        </classes>
+    </test>
+
+    <parameter name="browserName" value="chrome"/>
+
+<!--        <test name="Navigation">-->
+<!--            <classes>-->
+<!--                <class name="testPom.TestAccountPage"/>-->
+<!--                <class name="testPom.TestContactUsPage"/>-->
+<!--            </classes>-->
+<!--        </test>-->
+</suite>
