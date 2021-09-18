@@ -4,7 +4,7 @@
 
     <test name="Search" >
         <parameter name="browserName" value="chrome"/>
-
+        
 <!--        <groups>-->
 <!--            <run>-->
 <!--                <include name="sanity"/>-->
