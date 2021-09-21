@@ -35,6 +35,8 @@ public class TestBase extends BaseAPI {
         return new ToysGames();
     }
 
+     public Pharmacy pharmacy;
+
     //region ASSERTION HELPER METHODS
     public boolean isElementPresent(WebElement element) {
         boolean flag = false;

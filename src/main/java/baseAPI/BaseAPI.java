@@ -18,6 +18,7 @@ import org.testng.annotations.*;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.time.Duration;
+import java.util.List;
 import java.util.Properties;
 
 public class BaseAPI {
@@ -59,12 +60,12 @@ public class BaseAPI {
     @Parameters({"browserName"})
     @BeforeMethod
     public void initializeDriver(@Optional("chrome") String browserName) {
+        driver = getLocalDriver(browserName);
         fluentWait = new FluentWait<>(driver)
                 .withTimeout(Duration.ofSeconds(10))
                 .pollingEvery(Duration.ofSeconds(1))
                 .ignoring(StaleElementReferenceException.class);
         explicitWait = new WebDriverWait(driver, 10);
-        driver = getLocalDriver(browserName);
         driver.get(properties.getProperty("URL"));
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
