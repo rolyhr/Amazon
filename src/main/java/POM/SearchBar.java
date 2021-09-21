@@ -2,11 +2,12 @@ package POM;
 
 import POM.locators.SearchBarLocators;
 import baseAPI.BaseAPI;
+import baseAPI.DataReader;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 
-import java.security.PublicKey;
+import java.io.IOException;
 
 public class SearchBar extends BaseAPI {
 
@@ -16,126 +17,154 @@ public class SearchBar extends BaseAPI {
         PageFactory.initElements(driver, this);
     }
 
-    @FindBy(id = SearchBarLocators.searchBar)
+    @FindBy(id = SearchBarLocators.SEARCH_BAR)
     WebElement searchBar;
 
-    @FindBy(id = "nav-search-submit-button")
+    @FindBy(id = SearchBarLocators.SEARCH_BUTTON)
     WebElement searchButton;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=audible\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_AUDIBLE)
     WebElement categoryAudible;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=alexa-skills\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_ALEXA_SKILLS)
     WebElement categoryAlexaSkills;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=amazon-devices\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_AMAZON_DEVICES)
     WebElement categoryAmazonDevices;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=amazon-pharmacy\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_AMAZON_PHARMACY)
     WebElement categoryAmazonPharmacy;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=warehouse-deals\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_WAREHOUSE)
     WebElement categoryWarehouseDeals;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=appliances\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_APPLIANCES)
     WebElement categoryAppliances;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=mobile-apps\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_MOBILE_APPS)
     WebElement categoryMobileApps;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=arts-crafts\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_ARTS_CRAFTS)
     WebElement categoryArtsCrafts;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=automotive\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_AUTOMOTIVE)
     WebElement categoryAutomotive;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=baby-products\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_BABY_PRODUCTS)
     WebElement categoryBabyProducts;
 
-    @FindBy(xpath = "//option[@value = \"search-alias=beauty\"]")
+    @FindBy(xpath = SearchBarLocators.CATEGORY_BEAUTY_PRODUCTS)
     WebElement categoryBeautyProducts;
 
 
-
-    void sendKeysToSearchBar(String value){
-        sendKeysToElement(searchBar,value);
-    }
+    void sendKeysToSearchBar(String value){sendKeysToElement(searchBar,value);}
 
     void clickSearchButton(){
         clickOnElement(searchButton);
     }
-    void clickToSelectACategory(){
+
+    void clickCategoryAudible(){
         clickOnElement(categoryAudible);
     }
+
+    void clickCategoryAlexaSkills(){clickOnElement(categoryAlexaSkills);}
+
+    void clickCategoryAmazonDevices(){clickOnElement(categoryAmazonDevices);}
+
+    void clickCategoryAmazonPharmacy(){clickOnElement(categoryAmazonPharmacy);}
+
+    void clickCategoryWarehouseDeals(){clickOnElement(categoryWarehouseDeals);}
+
+    void clickCategoryAppliances(){clickOnElement(categoryAppliances);}
+
+    void clickCategoryMobileApps(){clickOnElement(categoryMobileApps);}
+
+    void clickCategoryArtsCrafts(){clickOnElement(categoryArtsCrafts);}
+
+    void clickCategoryAutomotive(){clickOnElement(categoryAutomotive);}
+
+    void clickCategoryBabyProducts(){clickOnElement(categoryBabyProducts);}
+
+    void clickCategoryBeautyProducts(){clickOnElement(categoryBeautyProducts);}
+
 
     public void doSearch(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(searchButton);
-
+        clickSearchButton();
     }
+
     public void doSearchByCategoryAudible(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryAudible);
-        clickOnElement(searchButton);
+        clickCategoryAudible();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryAlexaSkills(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryAlexaSkills);
-        clickOnElement(searchButton);
+        clickCategoryAlexaSkills();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryAmazonDevices(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryAmazonDevices);
-        clickOnElement(searchButton);
+        clickCategoryAmazonDevices();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryAmazonPharmacy(String  value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryAmazonPharmacy);
-        clickOnElement(searchButton);
+        clickCategoryAmazonPharmacy();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryWarehouseDeals(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryWarehouseDeals);
-        clickOnElement(searchButton);
+        clickCategoryWarehouseDeals();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryAppliances(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryAppliances);
-        clickOnElement(searchButton);
+        clickCategoryAppliances();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryMobileApps(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryMobileApps);
-        clickOnElement(searchButton);
+        clickCategoryMobileApps();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryArtCrafts(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryArtsCrafts);
-        clickOnElement(searchButton);
+        clickCategoryArtsCrafts();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryAutomotive(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryAutomotive);
-        clickOnElement(searchButton);
+        clickCategoryAutomotive();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryBabyProducts(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryBabyProducts);
-        clickOnElement(searchButton);
+        clickCategoryBabyProducts();
+        clickSearchButton();
     }
 
     public void doSearchByCategoryBeautyProducts(String value){
         sendKeysToSearchBar(value);
-        clickOnElement(categoryBeautyProducts);
-        clickOnElement(searchButton);
+        clickCategoryBeautyProducts();
+        clickSearchButton();
+    }
+
+
+    static String path = System.getProperty("user.dir") + "/src/test/resources/TestData/AmazonTestData.xlsx";
+    public String[][] getValidSearchBarTestData() throws IOException {
+        dataReader = new DataReader();
+        String sheetName = "osman_aziz";
+        String[][] testData = dataReader.fileReaderArrayStringArraysXSSF(path,sheetName);
+        return testData;
     }
 }

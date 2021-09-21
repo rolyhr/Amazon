@@ -9,6 +9,7 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.opera.OperaDriver;
+import org.openqa.selenium.safari.SafariDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -100,6 +101,9 @@ public class BaseAPI {
             case "opera":
                 WebDriverManager.operadriver().setup();
                 driver = new OperaDriver();
+                break;
+            case "safari":
+                driver = new SafariDriver();
                 break;
         }
         return driver;
