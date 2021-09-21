@@ -1,23 +1,20 @@
 package baseAPI;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.time.Duration;
+import java.util.Arrays;
 import java.util.Properties;
 
 public class BaseAPI {
@@ -31,7 +28,9 @@ public class BaseAPI {
 
     public final String systemPath = System.getProperty("user.dir");
     private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
+    private final String EXCEL_RELATIVE_PATH = "/src/test/resources/TestData/AmazonTestData.xlsx";
     private final String PROP_FILE_PATH = systemPath + PROP_RELATIVE_PATH;
+    private final String EXCEL_FILE_PATH = systemPath + EXCEL_RELATIVE_PATH;
 
     @BeforeSuite (alwaysRun = true)
     public void setup() {
@@ -58,13 +57,9 @@ public class BaseAPI {
 
     @Parameters({"browserName"})
     @BeforeMethod
-    public void initializeDriver(@Optional("chrome") String browserName) {
-        fluentWait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofSeconds(1))
-                .ignoring(StaleElementReferenceException.class);
-        explicitWait = new WebDriverWait(driver, 10);
+    public void driverInit(@Optional("chrome") String browserName) {
         driver = getLocalDriver(browserName);
+        explicitWait = new WebDriverWait(driver, 10);
         driver.get(properties.getProperty("URL"));
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
@@ -118,4 +113,34 @@ public class BaseAPI {
             element.sendKeys(value);
         }
     }
+
+    public void waitForElementToContainText(WebElement element, String text) {
+        try {
+            explicitWait.until(ExpectedConditions.textToBePresentInElement(element, text));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void hoverOverElement(WebElement mainMenu, WebElement subMenu) {
+        Actions actions = new Actions(driver);
+        WebElement mm = explicitWait.until(ExpectedConditions.visibilityOf(mainMenu));
+        actions.moveToElement(mm).build().perform();
+        WebElement sm = explicitWait.until(ExpectedConditions.visibilityOf(subMenu));
+        actions.moveToElement(sm).click().build().perform();
+    }
+
+    public String readFromExcel(String sheetName, int index) {
+        dataReader = new DataReader();
+        String[] excelData = new String[index];
+        try {
+            excelData = dataReader.fileReaderStringXSSF(EXCEL_FILE_PATH, sheetName);
+        } catch (IOException e) {
+            System.out.println("UNABLE TO READ FROM EXCEL FILE!");
+        }
+        return Arrays.toString(new String[]{excelData[index]})
+                .replace("[", "")
+                .replace("]", "");
+    }
+
 }

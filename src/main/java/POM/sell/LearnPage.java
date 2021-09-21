@@ -1,13 +1,11 @@
-package POM;
+package POM.sell;
 
 import baseAPI.BaseAPI;
 import org.openqa.selenium.support.PageFactory;
 
-public class Sell extends BaseAPI {
+public class LearnPage extends BaseAPI {
 
-    //Roly Hr
-
-    public Sell() {
+    public LearnPage() {
         PageFactory.initElements(driver, this);
     }
 }
