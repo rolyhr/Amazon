@@ -5,7 +5,7 @@ public class SellLocators {
     //Roly Hr
 
     //Queries
-    public final static String QUERY = "select email, yourName, password, reenterPassword from `test_schema_1`.`amazon_registration` where email = 'sample@email.com'";
+    public final static String QUERY = "select email, yourName, password, reenterPassword from `test_schema_1`.`amazon_registration` where email = 'test@email.com'";
 
     public final static String SIGN_UP_BUTTON = "div.nav-main-wrapper.nav-style-white-background nav a:nth-child(3)"; //CSS
     public final static String CREATE_AMAZON_ACCOUNT_BUTTON = "#createAccountSubmit"; //CSS
@@ -15,6 +15,8 @@ public class SellLocators {
     public final static String CREATE_ACCOUNT_PASSWORD = "ap_password"; //ID
     public final static String CREATE_ACCOUNT_REENTER_PASSWORD = "ap_password_check"; //ID
     public final static String CREATE_ACCOUNT_NEXT_BUTTON = "continue"; //ID
+    //Account Registration Page Warning
+    public final static String CREATE_ACCOUNT_WARNING_MSG = "#auth-warning-message-box div div ul li span"; //CSS
 
     public final static String START_MENU = "div.nav-main-wrapper.nav-style-white-background nav ul li.has-children:nth-child(3)"; //CSS
     public final static String START_BEGINNER_GUIDE = "div.nav-main-wrapper.nav-style-white-background nav ul li:nth-child(3) ul li:nth-child(4)"; //CSS

@@ -2,6 +2,7 @@ package testPOM.testSell;
 
 import POM.locators.SellLocators;
 import POM.sell.*;
+import org.openqa.selenium.By;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import testBase.TestBase;
@@ -50,7 +51,7 @@ public class TestSell extends TestBase {
     }
 
     @Test (description = "TC001CA", priority = 5, enabled = true)
-    public void testCreateNewAccountWithValidData() throws IOException, SQLException, ClassNotFoundException {
+    public void testCreateNewAccountWithInvalidData() throws IOException, SQLException, ClassNotFoundException {
         Sell sell = getSell();
         sell.clickOnSignUpButton();
         sell.clickOnCreateAccountButton();
@@ -59,7 +60,13 @@ public class TestSell extends TestBase {
         sell.sendPasswordToPasswordField(getDataFromMySQL(SellLocators.QUERY, "password"));
         sell.sendReEnterPasswordToPasswordField(getDataFromMySQL(SellLocators.QUERY, "reenterPassword"));
         sell.clickOnNextButtonInCreateAccountPage();
-        //Need to assert on the result...
+        waitForElementToContainText(sell.createAccountWarningMsg,
+                "You indicated you're a new customer, but an account already exists with the email address "
+                + getDataFromMySQL(SellLocators.QUERY, "email") + ".");
+        String actualTest = driver.findElement(By.cssSelector(SellLocators.CREATE_ACCOUNT_WARNING_MSG)).getText();
+        String expectedTest = readFromExcel("TestSell", 4) + " "
+                + getDataFromMySQL(SellLocators.QUERY, "email") + ".";
+        Assert.assertEquals(actualTest, expectedTest, "Failed testCreateNewAccountWithInvalidData");
     }
 
 }

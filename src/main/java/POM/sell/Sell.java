@@ -49,6 +49,9 @@ public class Sell extends BaseAPI {
 
     @FindBy (id = SellLocators.CREATE_ACCOUNT_NEXT_BUTTON)
     public WebElement createAccountNextButton;
+
+    @FindBy (css = SellLocators.CREATE_ACCOUNT_WARNING_MSG)
+    public WebElement createAccountWarningMsg;
     //END - Create Account Page
 
     //START - Main Menu
