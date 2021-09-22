@@ -18,7 +18,7 @@ public class MySQLConnection {
 
     public static Properties loadProperties() throws IOException {
         Properties prop = new Properties();
-        InputStream ism = new FileInputStream("src/secret.properties");
+        InputStream ism = new FileInputStream("src/main/resources/credentials.properties");
         prop.load(ism);
         ism.close();
         return prop;

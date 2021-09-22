@@ -1,13 +1,11 @@
 package baseAPI;
 
 import io.github.bonigarcia.wdm.WebDriverManager;
-import org.openqa.selenium.StaleElementReferenceException;
-import org.openqa.selenium.TimeoutException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.edge.EdgeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.opera.OperaDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
@@ -28,6 +26,7 @@ public class BaseAPI {
     public static DataReader dataReader;
     public static MySQLConnection mySQLConnection;
     private Properties properties;
+
 
     public final String systemPath = System.getProperty("user.dir");
     private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
@@ -59,12 +58,12 @@ public class BaseAPI {
     @Parameters({"browserName"})
     @BeforeMethod
     public void initializeDriver(@Optional("chrome") String browserName) {
-        fluentWait = new FluentWait<>(driver)
-                .withTimeout(Duration.ofSeconds(10))
-                .pollingEvery(Duration.ofSeconds(1))
-                .ignoring(StaleElementReferenceException.class);
-        explicitWait = new WebDriverWait(driver, 10);
+//        fluentWait = new FluentWait<>(driver)
+//                .withTimeout(Duration.ofSeconds(10))
+//                .pollingEvery(Duration.ofSeconds(1))
+//                .ignoring(StaleElementReferenceException.class);
         driver = getLocalDriver(browserName);
+        explicitWait = new WebDriverWait(driver, 10);
         driver.get(properties.getProperty("URL"));
         driver.manage().deleteAllCookies();
         driver.manage().window().maximize();
@@ -118,4 +117,16 @@ public class BaseAPI {
             element.sendKeys(value);
         }
     }
+    public void hoverOverElement(WebElement womenFashionMainMenuTabHover,WebElement clothingSubMenu){
+        Actions actions=new Actions(driver);
+        WebElement mm=explicitWait.until(ExpectedConditions.visibilityOf(womenFashionMainMenuTabHover));
+        actions.moveToElement(mm).build().perform();
+        WebElement sm=explicitWait.until(ExpectedConditions.visibilityOf(clothingSubMenu));
+        actions.moveToElement(sm).build().perform();
+
+
+
+    }
+
+
 }
