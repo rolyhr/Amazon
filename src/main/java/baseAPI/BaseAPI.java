@@ -14,6 +14,9 @@ import org.testng.annotations.*;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
 import java.util.Arrays;
 import java.util.Properties;
 
@@ -23,8 +26,10 @@ public class BaseAPI {
     public static Wait<WebDriver> fluentWait;
     public static WebDriverWait explicitWait;
     public static DataReader dataReader;
-    public static MySQLConnection mySQLConnection;
+    public static MySQLConnection sqlConnection;
     private Properties properties;
+    public Statement statement = null;
+    public ResultSet resultSet = null;
 
     public final String systemPath = System.getProperty("user.dir");
     private final String PROP_RELATIVE_PATH = "/src/main/resources/credentials.properties";
@@ -49,7 +54,7 @@ public class BaseAPI {
         }
 
         try {
-            mySQLConnection = new MySQLConnection();
+            sqlConnection = new MySQLConnection();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -131,7 +136,6 @@ public class BaseAPI {
     }
 
     public String readFromExcel(String sheetName, int index) {
-        dataReader = new DataReader();
         String[] excelData = new String[index];
         try {
             excelData = dataReader.fileReaderStringXSSF(EXCEL_FILE_PATH, sheetName);
@@ -141,6 +145,25 @@ public class BaseAPI {
         return Arrays.toString(new String[]{excelData[index]})
                 .replace("[", "")
                 .replace("]", "");
+    }
+
+    public String getDataFromMySQL(String query, String columnLabel) throws SQLException, IOException, ClassNotFoundException {
+        sqlConnection = new MySQLConnection();
+        MySQLConnection.loadProperties();
+        statement = MySQLConnection.connectToSqlDatabase().createStatement();
+        resultSet = statement.executeQuery(query);
+        resultSet.next();
+        return resultSet.getString(columnLabel);
+    }
+
+    public String readExcelFile2D(String sheetName, int index1, int index2) {
+        String[][] excelData = new String[index1][index2];
+        try {
+            excelData = dataReader.fileReaderArrayStringArraysXSSF(EXCEL_FILE_PATH, sheetName);
+        } catch (IOException e) {
+            System.out.println("UNABLE TO READ FROM EXCEL FILE!");
+        }
+        return excelData[index1][index2];
     }
 
 }

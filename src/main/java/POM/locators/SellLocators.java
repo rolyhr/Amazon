@@ -4,6 +4,9 @@ public class SellLocators {
 
     //Roly Hr
 
+    //Queries
+    public final static String QUERY = "select email, yourName, password, reenterPassword from `test_schema_1`.`amazon_registration` where email = 'sample@email.com'";
+
     public final static String SIGN_UP_BUTTON = "div.nav-main-wrapper.nav-style-white-background nav a:nth-child(3)"; //CSS
     public final static String CREATE_AMAZON_ACCOUNT_BUTTON = "#createAccountSubmit"; //CSS
     //CREATE AN ACCOUNT PAGE

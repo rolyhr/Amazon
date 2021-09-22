@@ -18,7 +18,7 @@ public class MySQLConnection {
 
     public static Properties loadProperties() throws IOException {
         Properties prop = new Properties();
-        InputStream ism = new FileInputStream("src/secret.properties");
+        InputStream ism = new FileInputStream("src/main/resources/credentials.properties");
         prop.load(ism);
         ism.close();
         return prop;
@@ -28,11 +28,10 @@ public class MySQLConnection {
         Properties prop = loadProperties();
         String driverClass = prop.getProperty("MYSQLJDBC.driver");
         String url = prop.getProperty("MYSQLJDBC.url");
-        String userName = prop.getProperty("MYSQLJDBC.userName");
+        String userName = prop.getProperty("MYSQLJDBC.username");
         String password = prop.getProperty("MYSQLJDBC.password");
         Class.forName(driverClass);
         connect = DriverManager.getConnection(url, userName, password);
-        System.out.println("Database is connected");
         return connect;
     }
 
